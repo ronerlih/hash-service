@@ -1,0 +1,53 @@
+{
+  "name": "JS-stack",
+  "version": "1.0.0",
+  "description": "a template for node-express-react-mongo-babel-webpack-ejs-eslint-jest app",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "nodemon": "nodemon --exec babel-node server.js --ignore public/",
+    "webpack": "webpack -wd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+..."
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/..."
+  },
+  "homepage": "https://...",
+  "dependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "axios": "^0.18.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.16.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "json-loader": "^0.5.4",
+    "mongodb": "^3.2.3",
+    "node-sass-middleware": "^0.11.0",
+    "prop-types": "^15.7.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/cli": "^7.2.3",
+    "@babel/node": "^7.x",
+    "babel-loader": "^8.0.5",
+    "babel-preset-latest": "^6.22.0",
+    "@babel/preset-env": "^7.3.4",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^6.10.3",
+    "jest": "^24.7.1",
+    "nodemon": "^1.11.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  }
+}
