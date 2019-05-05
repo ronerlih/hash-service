@@ -12,57 +12,32 @@ const insert = ( hash, msg ) => {
 
         // if (err) throw (err);
     try {
-        const collection = _client.db("hash-service").collection("messages");
+        const collection = await _client.db("hash-service").collection("messages");
+        
         const data = {};
         data[hash] = msg;
-            let documents = collection.find( data )
-                .toArray()
-                .then(()=>{
-                    if (documents.length === 0){
-                        collection.insertOne( data );
-       
-                   } else {
-                       console.log('document exists');
-                   }
-                   _client.close(true);
-                })
-                .catch((err) => console.log);
-
+        // let documents = await collection.find( data ).toArray();
+        let documents = await collection.find( {[hash]: {$exists: true}} ).toArray();
+        console.log('documents.length', documents.length);
+        if (documents.length === 0){
+            await collection.insertOne( data );
+            _client.close(true);
+        } else {
+            console.log('document exists');
+            _client.close(true);
+        }
     } catch (err){
-        _client.close(true);
-        throw err;
+        errorPipe(err);
     }
       });
     
 }
 
-
-/// alternative connection
-//
-// const client = new MongoClient(uri, { useNewUrlParser: true });
-
-// const insert = async ( hash, msg ) => {
-//     client.connect(async (err) => {
-//     // if (err) throw (err);
-// try {
-//     const collection = client.db("hash-service").collection("messages");
-//     const data = {};
-//     data[hash] = msg;
-//         let documents = collection.find( data ).toArray().catch((err) => console.log);
-//         if (documents.length === 0){
-//              collection.insertOne( data );
-
-//         } else {
-//             console.log('document exists');
-//         }
-//     client.close(true);
-// } catch (err){
-//     client.close(true);
-//     throw err;
-// }
-//   });
-
-// }
+const errorPipe = ( err ) => {
+    console.log(err);
+    _client.close(true);
+    throw err;
+}  
 module.exports = {
     insert: insert
 }
