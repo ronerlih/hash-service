@@ -1,6 +1,6 @@
-import "@babel/polyfill";
+'use strict';
+import '@babel/polyfill';
 import encrypt from '../api/utils/encrypt';
-import RandExp from 'randexp';
 const { exec } = require('child_process');
 
 
@@ -17,7 +17,7 @@ describe('SHA256 encyption method test', () => {
     it('Validate hash according to SHASUM command  \n    (shasum tested on mac and ubuntu) ', async () => {
 
         // generate a random string to test
-        const RANDOM_STR = randomString(1020);
+        const RANDOM_STR = randomString(1023);
         console.log('unicode random string:\n',RANDOM_STR);
         //comparing shasum command to node crypto module with sha256 algorithem.
         const execPromise = () => {

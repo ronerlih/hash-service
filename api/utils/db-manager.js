@@ -1,19 +1,26 @@
 /* eslint-disable no-console */
 // ## mongoDB atlas cluster manager
 // ## methods:
-// ##   insert => excepts a hash and message and inserts them as a key:value pair
-// ##   
-
+// ##   insert => excepts (hash, originalMessage, next-middelware-pipeline) and inserts hash:originalMessage as a key:value pair,
+// ##       return true if inserted, false if not, pipes errors to express err middleware.
+// ##   getHash => excepts ( hash, next-middelware-pipeline), check DB for the hash key, 
+// ##       return msg if exists or null if it doesn't. pipes errors to express err middleware.
 const MongoClient = require('mongodb').MongoClient;
 import {mongoUser, mongoPass} from '../../config';
 const URL = `mongodb+srv://${mongoUser}:${mongoPass}@sandbox-l30bx.mongodb.net/`;
 
+
+const connectToAtlas = async () => {
+    // connect to atlas mongo client (v4.0.9).
+    const client = new MongoClient(URL, { useNewUrlParser: true });
+    const connectedClient = await client.connect();
+    const collection = await connectedClient.db('hash-service').collection('messages');
+    return [collection, connectedClient];
+}
+
 const insert = async ( hash, msg, next ) => {
     try{
-        // connect to mongo client (v4.0.9).
-        const client = new MongoClient(URL, { useNewUrlParser: true });
-        const _client = await client.connect();
-        const collection = _client.db('hash-service').collection('messages');
+        const [collection, client] = await connectToAtlas();
         const data = {[hash]: [msg]};
             
         // check if hash is already in db.
@@ -25,33 +32,31 @@ const insert = async ( hash, msg, next ) => {
         // if so, add to db.
         if (documents.length === 0){
             await collection.insertOne( data );
-            _client.close(true);
+            client.close(true);
             return true;
         } else {
             console.log('document exists');
-            _client.close(true);
+            client.close(true);
             return false;
         }
 
     } catch (err){
-        next(err);
+        (next)
+            ? next(err)
+            // in testing
+            : console.log(err);
     }
-    
 };
-
 const getHash = async ( hash, next ) => {
     try{
-        // connect to mongo client (v4.0.9).
-        const client = new MongoClient(URL, { useNewUrlParser: true });
-        const _client = await client.connect();
-        const collection = _client.db('hash-service').collection('messages');
+        const [collection, client] = await connectToAtlas();
 
         // check if hash has been added to db.
         const data = 
         await collection
-            .find( {[hash]: {$exists: true}} )
+            .find({[hash]: { $exists: true }})
             .toArray();
-        _client.close(true);
+        client.close(true);
                 
         // if so, return value (original msg).
         if (data.length !== 0){
@@ -69,14 +74,8 @@ const getHash = async ( hash, next ) => {
     }
 };
 
-// eslint-disable-next-line no-unused-vars
-const errorPipe = ( err ) => {
-    console.log(err);
-    // next
-    throw err;
-};  
-
 module.exports = {
+    connectToAtlas: connectToAtlas,
     insert: insert,
     getHash: getHash
 };

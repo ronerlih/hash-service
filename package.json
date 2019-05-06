@@ -4,9 +4,13 @@
   "description": "message encryption and extraction service, using SHA256 hashing algorithm",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest  --runInBand --detectOpenHandles",
     "nodemon": "nodemon --exec babel-node server.js --ignore public/",
     "webpack": "webpack -wd"
+  },
+  "jest": {
+    "preset": "@shelf/jest-mongodb",
+    "verbose": true
   },
   "repository": {
     "type": "git",
@@ -44,6 +48,7 @@
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/plugin-transform-regenerator": "^7.4.4",
     "@babel/preset-env": "^7.3.4",
+    "@shelf/jest-mongodb": "^1.0.1",
     "babel-loader": "^8.0.5",
     "babel-polyfill": "^6.0.16",
     "babel-preset-latest": "^6.22.0",
