@@ -14,28 +14,28 @@ const connectToAtlas = async () => {
     // connect to atlas mongo client (v4.0.9).
     const client = new MongoClient(URL, { useNewUrlParser: true });
     const connectedClient = await client.connect();
-    const collection = await connectedClient.db('hash-service').collection('messages');
-    return [collection, connectedClient];
+    const db = await connectedClient.db('hash-service');
+    return [db, connectedClient];
 }
 
 const insert = async ( hash, msg, next ) => {
     try{
-        const [collection, client] = await connectToAtlas();
+        const [db, client] = await connectToAtlas();
         const data = {[hash]: [msg]};
             
         // check if hash is already in db.
         let documents = 
-            await collection
+            await db
+                .collection('messages')
                 .find( {[hash]: {$exists: true}} )
                 .toArray();
         
         // if so, add to db.
         if (documents.length === 0){
-            await collection.insertOne( data );
+            await db.collection('messages').insertOne( data );
             client.close(true);
             return true;
         } else {
-            console.log('document exists');
             client.close(true);
             return false;
         }
@@ -49,28 +49,33 @@ const insert = async ( hash, msg, next ) => {
 };
 const getHash = async ( hash, next ) => {
     try{
-        const [collection, client] = await connectToAtlas();
+        const [db, client] = await connectToAtlas();
+
+        // return null if no hash
+        if (!hash) return null;
 
         // check if hash has been added to db.
         const data = 
-        await collection
+        await db
+            .collection('messages')
             .find({[hash]: { $exists: true }})
             .toArray();
         client.close(true);
                 
         // if so, return value (original msg).
         if (data.length !== 0){
-            console.log('hash exists');
             const msg = data[0][hash].toString();
-            console.log(msg);
             return msg;
         } else {
-            console.log('hash doesnt exist');
+            // if no doc return null
             return null;
         }
     }
     catch (err){
-        next(err);
+        (next)
+            ? next(err)
+            // in testing
+            : console.log(err);
     }
 };
 

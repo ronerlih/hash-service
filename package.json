@@ -4,7 +4,7 @@
   "description": "message encryption and extraction service, using SHA256 hashing algorithm",
   "main": "server.js",
   "scripts": {
-    "test": "jest  --runInBand --detectOpenHandles",
+    "test": "jest  --runInBand --detectOpenHandles --forceExit",
     "nodemon": "nodemon --exec babel-node server.js --ignore public/",
     "webpack": "webpack -wd"
   },

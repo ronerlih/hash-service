@@ -5,13 +5,24 @@
 import "@babel/polyfill";
 import encrypt from '../api/utils/encrypt';
 import {connectToAtlas, insert, getHash} from '../api/utils/db-manager';
+import { notDeepEqual } from "assert";
 const RANDOM_STR = randomString(100);
 const INSERTED_RANDOM_STR = randomString(100);
 const NEW_DATA = [encrypt (RANDOM_STR), RANDOM_STR ];
 const INSERTED_DATA = [encrypt (RANDOM_STR), INSERTED_RANDOM_STR, null ];
+let db,client;
 
 
 describe('test insert method (with atlas mongodb)', () => {
+   
+    beforeAll(async () => {
+        [db, client] = await connectToAtlas();
+    });
+    
+    afterAll(async () => {
+        await client.close();
+        await db.close();
+      });
 
     it('Should return true on a new msg', async () => {
         expect( await insert( NEW_DATA )).toBe(true);
@@ -32,16 +43,55 @@ describe('test insert method (with atlas mongodb)', () => {
         expect( await insert()).toBe(false);
         // TO-DO: delete record after testing.
     });
-
-
 });
 
 describe('test getHash method (with atlas mongodb)', () => {
-    
-    it('Should return true on a new msg', async () => {
+        
+    beforeAll(async () => {
+        [db, client] = await connectToAtlas();
+    });
+
+    afterAll(async () => {
+        await client.close();
+        await db.close();
+    });
+
+    it('Should match encrypted msg', async () => {
         const hash = await getHash( INSERTED_DATA[0] );
         expect( hash.substring(1, -1) ).toEqual( INSERTED_DATA[1].substring(1, -1));
     });
+
+    it('Should return null on missing key', async () => {
+        const missingDoc = await getHash( randomString(64));
+        expect( missingDoc ).toEqual( null );
+    });
+
+    it('Should return null on missing key', async () => {
+        const noArgs = await getHash();
+        expect( noArgs ).toEqual( null );
+    });
+});
+
+describe('test db connection connectToAtlas method', () => {
+
+    afterAll(async () => {
+        await client.close();
+        await db.close();
+        process.exit();
+    });
+      
+    it('Should connect to DB', async () => {
+        [db, client] = await connectToAtlas();
+        const doc = await db.collection('messages').findOne();
+        console.log("hasId", doc["_id"]);
+        expect( typeof doc["_id"] ).not.toBe( null );
+    });
+
+    // # TO-DO:
+    // # add error test for bad request to db, either credentials or other. 
+    // # add load test for multiple calls.
+    // # mock embedded db for faster testing and control.
+    
 });
 
 function randomString(length) {
