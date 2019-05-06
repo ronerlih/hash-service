@@ -13,10 +13,17 @@ router.post('/messages', async (req, res, next) => {
         const encription = await encrypt( msg );
         // return bad requst on empty string.
         if ( encription === null) res.status(400).send('Empty message, please supply a text to encrypt');
+        // return method not allowed on strings longer than 1024.
+        if ( encription.length >= 1024) res.status(405).send(
+          {response: 'Message is longer than 1024 characters, please split your message or turnicate it.',
+            turnicatedMessage: encription}
+          );
+        
         const docInserted = await insert ( encription, msg );
         console.log('hash: ', encription);
         docInserted
         ? res.send({'digest': encription})
+        // return method not allowed.
         : res.status(405).send('msg already exists!');}
     catch (err) {
         next(err);
