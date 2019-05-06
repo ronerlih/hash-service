@@ -1,8 +1,8 @@
 {
-  "name": "JS-stack",
+  "name": "hash-service",
   "version": "1.0.0",
-  "description": "a template for node-express-react-mongo-babel-webpack-ejs-eslint-jest app",
-  "main": "index.js",
+  "description": "message encryption and extraction service, using SHA256 hashing algorithm",
+  "main": "server.js",
   "scripts": {
     "test": "jest",
     "nodemon": "nodemon --exec babel-node server.js --ignore public/",
@@ -36,13 +36,15 @@
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
     "@babel/node": "^7.x",
-    "babel-loader": "^8.0.5",
-    "babel-preset-latest": "^6.22.0",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-transform-regenerator": "^7.4.4",
     "@babel/preset-env": "^7.3.4",
+    "babel-loader": "^8.0.5",
+    "babel-polyfill": "^6.0.16",
+    "babel-preset-latest": "^6.22.0",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^6.10.3",
     "jest": "^24.7.1",

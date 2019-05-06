@@ -2,6 +2,7 @@
 import express from 'express';
 import encrypt from './utils/encrypt';
 import {insert, getHash} from './utils/db-manager';
+import assert from 'assert';
 
 const router = express.Router();
 
@@ -10,6 +11,8 @@ router.post('/messages', async (req, res, next) => {
     try {
         const msg = req.body.message;
         const encription = await encrypt( msg );
+        // return bad requst on empty string.
+        if ( encription === null) res.status(400).send('Empty message, please supply a text to encrypt');
         const docInserted = await insert ( encription, msg );
         console.log('hash: ', encription);
         docInserted
