@@ -9,7 +9,7 @@
     "webpack": "webpack -wd"
   },
   "jest": {
-    "preset": "@shelf/jest-mongodb",
+    // "preset": "@shelf/jest-mongodb",
     "verbose": true,
     "rootDir": "/"
   },
