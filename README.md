@@ -11,7 +11,7 @@ Express, Mongodb, Jest, Webpack with Babel, ESlint.
 ##### POST - encrypt message
 
 ```
-POST https://localhost:8080/api/messages
+POST https://204.48.29.202:8080/api/messages
 Headers: "Content-Type": "Application/JSON"
 Body: { "message": "YOUR ORIGINAL UNICODE MESSAGE" } 
 
@@ -22,7 +22,7 @@ RESPONSE {
 
 ##### GET - extract message
 ```
-GET https://localhost:8080/api/messages/YOUR-ENCRYPTED-HASH
+GET https://204.48.29.202:8080/api/messages/YOUR-ENCRYPTED-HASH
 
 RESPONSE {
 "message": "foo"
@@ -34,9 +34,16 @@ RESPONSE {
 ## Installation
 (tested on Mac with node v10.15.0)
 
-* clone Repo: ...
+* install Node v10.15.0 (https://nodejs.org/en/download/)
+* clone Repo: 
+> $ git clone https://github.com/ronerlih/hash-service.git
 * install packages (from within dir):
 > $ npm install
+
+* set up enviroment variables:
+> export MONGO_USER=k****r
+
+> export MONGO_PASS=********
 
 * run scripts:
 > $ npm run webpack
@@ -47,10 +54,18 @@ RESPONSE {
 
 > $ npm run test
 
-Server will be running on [http://localhost:8080/](http://localhost:8080/)
+Server is running on [http://204.48.29.202:8080/](http://204.48.29.202:8080/)
 
 #### TO-DO: 
 * add documentation of API error code responses
 * load tests
 * Further unit tests
 * and much more.
+
+#### command line requests:
+* POST message:
+> $ curl -X POST -H "Content-Type: application/json" -d '{"message":"foo"}' http://204.48.29.202:8080/api/
+* GET message:
+> $ curl -i http://204.48.29.202:8080/api/messages/2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae 
+* validate hash using openssl:
+> $ echo -n "foo" | shasum -a 256

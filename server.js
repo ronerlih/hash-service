@@ -1,7 +1,5 @@
 import config from './config';
 import apiRouter from './api';
-import sassMiddleware from 'node-sass-middleware';
-import path from 'path';
 import serverRender from './serverRender';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -11,11 +9,6 @@ server.use( bodyParser.json() );       // to support JSON-encoded bodies
 server.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 })); 
-
-server.use(sassMiddleware({
-    src: path.join(__dirname, 'sass'),
-    dest: path.join(__dirname, 'public')
-}));
 
 server.set('view engine', 'ejs');
 

@@ -16,7 +16,7 @@ const connectToAtlas = async () => {
     const connectedClient = await client.connect();
     const db = await connectedClient.db('hash-service');
     return [db, connectedClient];
-}
+};
 
 const insert = async ( hash, msg, next ) => {
     try{
