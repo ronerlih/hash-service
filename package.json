@@ -10,7 +10,8 @@
   },
   "jest": {
     "preset": "@shelf/jest-mongodb",
-    "verbose": true
+    "verbose": true,
+    "rootDir": "/"
   },
   "repository": {
     "type": "git",
