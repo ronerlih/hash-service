@@ -1,6 +1,8 @@
-## My Node React Mongo Base
+## Node React Mongo 
 
-Express, Mongodb, Jest, Webpack with babel, sass, eslint, and nodemon
+## Node React Mongo 
+
+Express, Mongodb, Jest, Webpack with babel, sass, eslint, and nodemon.
 
 ### Development
 

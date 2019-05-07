@@ -46,3 +46,5 @@ function errorHandler (err, req, res, next) {
 server.listen(config.port, config.host, () => {
     console.info('Express listening on port', config.port);
 });
+
+export default server;

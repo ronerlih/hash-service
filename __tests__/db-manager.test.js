@@ -2,10 +2,10 @@
 // # TO-DO: add a seperate tests collection on mongo.
 
 // 'use strict';
-import "@babel/polyfill";
+import '@babel/polyfill';
 import encrypt from '../api/utils/encrypt';
 import {connectToAtlas, insert, getHash} from '../api/utils/db-manager';
-import { notDeepEqual } from "assert";
+import { notDeepEqual } from 'assert';
 const RANDOM_STR = randomString(100);
 const INSERTED_RANDOM_STR = randomString(100);
 const NEW_DATA = [encrypt (RANDOM_STR), RANDOM_STR ];
@@ -83,15 +83,14 @@ describe('test db connection connectToAtlas method', () => {
     it('Should connect to DB', async () => {
         [db, client] = await connectToAtlas();
         const doc = await db.collection('messages').findOne();
-        console.log("hasId", doc["_id"]);
-        expect( typeof doc["_id"] ).not.toBe( null );
+        expect( typeof doc['_id'] ).not.toBe( null );
     });
 
     // # TO-DO:
     // # add error test for bad request to db, either credentials or other. 
     // # add load test for multiple calls.
     // # mock embedded db for faster testing and control.
-    
+
 });
 
 function randomString(length) {

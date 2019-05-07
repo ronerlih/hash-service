@@ -39,7 +39,8 @@
     "randexp": "^0.5.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "regenerate": "^1.4.0"
+    "regenerate": "^1.4.0",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

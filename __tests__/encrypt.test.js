@@ -2,9 +2,8 @@
 import '@babel/polyfill';
 import encrypt from '../api/utils/encrypt';
 const { exec } = require('child_process');
-
-
 const DATA = 'msg to encrypt';
+
 describe('SHA256 encyption method test', () => {
     it('Should return a hash string', () => {
         expect(typeof encrypt( DATA )).toBe('string');
@@ -18,7 +17,7 @@ describe('SHA256 encyption method test', () => {
 
         // generate a random string to test
         const RANDOM_STR = randomString(1023);
-        console.log('unicode random string:\n',RANDOM_STR);
+        console.log('unicode random message (1023 characters long):\n',RANDOM_STR);
         //comparing shasum command to node crypto module with sha256 algorithem.
         const execPromise = () => {
             return ( new Promise(( resolve, reject ) => {
