@@ -13,7 +13,7 @@ server.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 server.set('view engine', 'ejs');
 
 server.get(['/'], (req, res) => {
-    serverRender(req.params.contestId)
+    serverRender()
     .then(({ initialMarkup, initialData }) => {
         res.render('index', {
             initialMarkup,
@@ -28,13 +28,13 @@ server.get(['/'], (req, res) => {
 
 server.use('/api', apiRouter);
 server.use(express.static('public'));
-server.use(errorHandler);
+// server.use(errorHandler);
 
 // eslint-disable-next-line no-unused-vars
-function errorHandler (err, req, res, next) {
-    res.status(500);
-    res.render('error', { error: err });
-}
+// function errorHandler (err, req, res, next) {
+//     res.status(500);
+//     res.render('error', { error: err });
+// }
 
 server.listen(config.port, config.host, () => {
     console.info('Express listening on port', config.port);

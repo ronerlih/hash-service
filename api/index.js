@@ -5,6 +5,18 @@ import {insert, getHash} from './utils/db-manager';
 
 const router = express.Router();
 
+//initial data
+router.get('/initial-data', async (req, res, next) => {
+    try {
+        const initialData = {headline: 'Welcome to Encryption/Decription service useing SHA256 hashing algorithem',
+                             data: 'initial data'};
+        res.send(initialData);
+    }
+    catch (err) {
+        next(err);
+    }
+});
+
 //encrypt route
 router.post('/messages', async (req, res, next) => {
     try {

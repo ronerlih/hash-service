@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../api';
+import StackDetails from './StackDetails';
 
 class App extends React.Component {
   static propTypes = {
@@ -13,10 +14,12 @@ class App extends React.Component {
     return (
       <div className="App">
         <ul>
-          {Object.entries(this.state.items).map(([itemId, item]) =>
-            <li key={itemId}>{item.title}</li>
-          )}
+          {console.log(this.state)}
+          {<h4>{this.state.headline}</h4>}
+          {<ul> data: {this.state.data}</ul>}
         </ul>
+
+        <StackDetails />
       </div>
     );
   }
