@@ -1,5 +1,5 @@
 # Hash-Service 
-## Kindur home assigment
+## Kindur message encryption api
 Encryption and decryption API service using SHA256 hashing algorithm.
 
 ### Stack: 
