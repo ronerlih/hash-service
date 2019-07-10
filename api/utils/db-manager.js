@@ -27,17 +27,22 @@ const URL = `mongodb://<${mongoUser}>:<${mongoPass}>@ds249717.mlab.com:49717/her
 // };
 
 //connect to heroku:
-mongoose.connect(URL, {
-    useMongoClient: true
-});
+const connectToAtlas = async () => {
+
+    mongoose.connect(URL, {
+        useMongoClient: true
+    });
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+    return db;
+};
 
 const insert = async ( hash, msg, next ) => {
     try{
         //atlas:
         // const [db, client] = await connectToAtlas();
-        var db = mongoose.connection;
+        const db = await connectToAtlas();
         
-        db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
         const data = {[hash]: [msg]};
             
@@ -51,10 +56,10 @@ const insert = async ( hash, msg, next ) => {
         // if so, add to db.
         if (documents.length === 0){
             await db.collection('messages').insertOne( data );
-            client.close(true);
+            db.close(true);
             return true;
         } else {
-            client.close(true);
+            db.close(true);
             return false;
         }
 
@@ -67,7 +72,7 @@ const insert = async ( hash, msg, next ) => {
 };
 const getHash = async ( hash, next ) => {
     try{
-        const [db, client] = await connectToAtlas();
+        const db = await connectToAtlas();
 
         // return null if no hash
         if (!hash) return null;
@@ -78,7 +83,7 @@ const getHash = async ( hash, next ) => {
             .collection('messages')
             .find({[hash]: { $exists: true }})
             .toArray();
-        client.close(true);
+        db.close(true);
                 
         // if so, return value (original msg).
         if (data.length !== 0){
