@@ -11,21 +11,21 @@ Express, Mongodb, Jest, Webpack with Babel, ESlint.
 ##### POST - encrypt message
 
 ```
-POST https://204.48.29.202:8080/api/messages
+POST https://kindur-hash-service.herokuapp.com//api/messages
 Headers: "Content-Type": "Application/JSON"
-Body: { "message": "YOUR ORIGINAL UNICODE MESSAGE" } 
+Body: { "message": "encrypted msg" } 
 
 RESPONSE {
-"digest": "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
+"digest": "9639929bae6efc700f433ab873b5a77f37e210422ea84f7abdec160531adcc52"
 }
 ```
 
 ##### GET - extract message
 ```
-GET https://204.48.29.202:8080/api/messages/YOUR-ENCRYPTED-HASH
+GET https://kindur-hash-service.herokuapp.com//api/messages/9639929bae6efc700f433ab873b5a77f37e210422ea84f7abdec160531adcc52
 
 RESPONSE {
-"message": "foo"
+"message": "encrypted msg"
 }
 
 ```
@@ -54,7 +54,7 @@ RESPONSE {
 
 > $ npm run test
 
-Server is running on [http://204.48.29.202:8080/](http://204.48.29.202:8080/)
+Server is running on [https://kindur-hash-service.herokuapp.com//](https://kindur-hash-service.herokuapp.com//)
 
 #### TO-DO: 
 * add documentation of API error code responses
@@ -64,9 +64,9 @@ Server is running on [http://204.48.29.202:8080/](http://204.48.29.202:8080/)
 
 #### command line requests:
 * POST message:
-> $ curl -X POST -H "Content-Type: application/json" -d '{"message":"foo"}' http://204.48.29.202:8080/api/messages/
+> $ curl -X POST -H "Content-Type: application/json" -d '{"message":"foo"}' https://kindur-hash-service.herokuapp.com//api/messages/
 
 * GET message:
-> $ curl -i http://204.48.29.202:8080/api/messages/2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae 
+> $ curl -i https://kindur-hash-service.herokuapp.com//api/messages/9639929bae6efc700f433ab873b5a77f37e210422ea84f7abdec160531adcc52 
 * validate hash using openssl:
 > $ echo -n "foo" | shasum -a 256
