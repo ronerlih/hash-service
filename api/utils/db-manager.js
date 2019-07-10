@@ -5,23 +5,40 @@
 // ##       return true if inserted, false if not, pipes errors to express err middleware.
 // ##   getHash => excepts ( hash, next-middelware-pipeline), check DB for the hash key, 
 // ##       return msg if exists or null if it doesn't. pipes errors to express err middleware.
-const MongoClient = require('mongodb').MongoClient;
+
+// atlas mongo:
+// const MongoClient = require('mongodb').MongoClient;
+
+//heroku mongo:
+const mongoose = require('mongoose');
+
 import {mongoUser, mongoPass} from '../../config';
 // atlas mongodb
 // const URL = `mongodb+srv://${mongoUser}:${mongoPass}@sandbox-l30bx.mongodb.net/`;
 const URL = `mongodb://<${mongoUser}>:<${mongoPass}>@ds249717.mlab.com:49717/heroku_gbm00h75`
 
-const connectToAtlas = async () => {
-    // connect to atlas mongo client (v4.0.9).
-    const client = new MongoClient(URL, { useNewUrlParser: true });
-    const connectedClient = await client.connect();
-    const db = await connectedClient.db('hash-service');
-    return [db, connectedClient];
-};
+//connect to atlas:
+// const connectToAtlas = async () => {
+//     // connect to atlas mongo client (v4.0.9).
+//     const client = new MongoClient(URL, { useNewUrlParser: true });
+//     const connectedClient = await client.connect();
+//     const db = await connectedClient.db('hash-service');
+//     return [db, connectedClient];
+// };
+
+//connect to heroku:
+mongoose.connect(URL, {
+    useMongoClient: true
+});
 
 const insert = async ( hash, msg, next ) => {
     try{
-        const [db, client] = await connectToAtlas();
+        //atlas:
+        // const [db, client] = await connectToAtlas();
+        var db = mongoose.connection;
+        
+        db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
         const data = {[hash]: [msg]};
             
         // check if hash is already in db.
