@@ -40,9 +40,8 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "regenerate": "^1.4.0",
-    "supertest": "^4.0.2"
-  },
-  "devDependencies": {
+    "supertest": "^4.0.2",
+ 
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.x",
