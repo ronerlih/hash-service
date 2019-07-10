@@ -7,8 +7,9 @@
 // ##       return msg if exists or null if it doesn't. pipes errors to express err middleware.
 const MongoClient = require('mongodb').MongoClient;
 import {mongoUser, mongoPass} from '../../config';
-const URL = `mongodb+srv://${mongoUser}:${mongoPass}@sandbox-l30bx.mongodb.net/`;
-
+// atlas mongodb
+// const URL = `mongodb+srv://${mongoUser}:${mongoPass}@sandbox-l30bx.mongodb.net/`;
+const URL = `mongodb://<${mongoUser}>:<${mongoPass}>@ds249717.mlab.com:49717/heroku_gbm00h75`
 
 const connectToAtlas = async () => {
     // connect to atlas mongo client (v4.0.9).
