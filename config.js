@@ -6,8 +6,8 @@ export const serverSalt = env.SALT;
 // export const mongoPass = env.MONGO_PASS;
 
 // BAD PRACTICE BELOW
-export const mongoUser = "kindur";
-export const mongoPass = "8AADpass";
+export const mongoUser = 'kindur';
+export const mongoPass = '8AADpass';
 
 export default {
   port: env.PORT || 8080,

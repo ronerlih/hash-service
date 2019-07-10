@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 import {mongoUser, mongoPass} from '../../config';
 // atlas mongodb
 // const URL = `mongodb+srv://${mongoUser}:${mongoPass}@sandbox-l30bx.mongodb.net/`;
-const URL = `mongodb://<${mongoUser}>:<${mongoPass}>@ds249717.mlab.com:49717/heroku_gbm00h75`
+const URL = `mongodb://${mongoUser}:${mongoPass}@ds249717.mlab.com:49717/heroku_gbm00h75`;
 
 //connect to atlas:
 // const connectToAtlas = async () => {
