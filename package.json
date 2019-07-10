@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest  --runInBand --detectOpenHandles --forceExit",
     "nodemon": "nodemon --exec babel-node server.js --ignore public/",
-    "webpack": "webpack -wd"
+    "webpack": "webpack -wd",
+    "start": "npm run webpack | npm run nodemon"
   },
   "jest": {
     "verbose": true,
