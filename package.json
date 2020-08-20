@@ -39,7 +39,7 @@
     "babel-loader": "^8.0.5",
     "babel-polyfill": "^6.0.16",
     "babel-preset-latest": "^6.22.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.16.0",
     "ejs": "^2.5.5",
     "eslint": "^3.19.0",
