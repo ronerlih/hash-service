@@ -12,7 +12,7 @@ const StackDetails = () => {
     return (
       <div className="StackDetails">
         <ul> Details:
-          {<li> server rendering, for disabled javascript mode (for google collection and other bots)</li>}
+          <li>(server rendering)</li>
         </ul>
       </div>
     );

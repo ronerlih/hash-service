@@ -12,10 +12,10 @@
 //heroku mongo:
 const mongoose = require('mongoose');
 
-import {mongoUser, mongoPass} from '../../config';
+import {mongoUser, mongoPass} from '../../config.js';
 // atlas mongodb
 // const URL = `mongodb+srv://${mongoUser}:${mongoPass}@sandbox-l30bx.mongodb.net/`;
-const URL = `mongodb://${mongoUser}:${mongoPass}@ds249717.mlab.com:49717/heroku_gbm00h75`;
+const URL = `mongodb+srv://${mongoUser}:${mongoPass}@cluster0.acsku.mongodb.net/256-hash?retryWrites=true&w=majority`;
 
 //connect to atlas:
 // const connectToAtlas = async () => {

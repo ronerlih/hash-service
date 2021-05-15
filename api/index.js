@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/initial-data', async (req, res, next) => {
     try {
         const initialData = {headline: 'Welcome to Encryption/Decription service useing SHA256 hashing algorithem',
-                             data: 'initial data'};
+            data: 'initial data'};
         res.send(initialData);
     }
     catch (err) {
@@ -20,6 +20,7 @@ router.get('/initial-data', async (req, res, next) => {
 //encrypt route
 router.post('/messages', async (req, res, next) => {
     try {
+        console.log(req.body);
         const msg = req.body.message;
         const encription = await encrypt( msg );
         // return bad requst on empty string.

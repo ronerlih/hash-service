@@ -1,12 +1,11 @@
-import config from './config';
+import config from './config.js';
 import apiRouter from './api';
 import serverRender from './serverRender';
 import express from 'express';
-import bodyParser from 'body-parser';
 
 const server = express();
-server.use( bodyParser.json() );       // to support JSON-encoded bodies
-server.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+server.use( express.json() );       // to support JSON-encoded bodies
+server.use( express.urlencoded({     // to support URL-encoded bodies
     extended: true
 })); 
 
