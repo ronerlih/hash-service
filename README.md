@@ -2,6 +2,8 @@
 ## Kindur message encryption api
 Encryption and decryption API service using SHA256 hashing algorithm.
 
+![screenshot](public/screenshot.png)
+
 ### Stack: 
 
 Express, Mongodb, Jest, Webpack with Babel, ESlint.
